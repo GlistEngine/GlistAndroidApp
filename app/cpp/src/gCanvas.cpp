@@ -7,6 +7,7 @@
 
 
 #include "gCanvas.h"
+#include "gAndroidToast.h"
 
 gCanvas::gCanvas(gApp* root) : gBaseCanvas(root) {
   this->root = root;
@@ -26,11 +27,12 @@ void gCanvas::setup() {
     x = (getWidth() - imagewidth) / 2;
     y = 0;
     text = "FPS: 0";
-    gShowDialog(0, "Example Title", "Example Message",
+    /*gShowDialog(0, "Example Title", "Example Message",
 				"ok",
                 G_BIND_FUNCTION(onDialogClick),
                 G_BIND_FUNCTION(onDialogCancel)
-    );
+    );*/
+    gShowToast("Hello world", TOASTDURATION_LONG);
 }
 
 void gCanvas::onDialogClick(int dialogId, DialogButton button) {
@@ -71,6 +73,7 @@ bool gCanvas::onTouch(gTouchEvent& event) {
     gLogi("gCanvas") << event.getInputs()[0].x << ", " << event.getInputs()[0].y;
     // Changing requested device orientation
     //appmanager->setDeviceOrientation(DEVICEORIENTATION_LANDSCAPE);
+	gShowToast("onTouch x:" + gToStr(event.getInputs()[0].x) + " y:" + gToStr(event.getInputs()[0].y), TOASTDURATION_SHORT);
     return false;
 }
 
